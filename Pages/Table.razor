@@ -22,15 +22,26 @@ else
             </TemplateColumn>
             <PropertyColumn Property="@(p => p.Name)" Sortable="true" />
             <PropertyColumn Property="@(p => p.Price)" Sortable="true" />
+            <TemplateColumn>
+                <button @onclick="@(() => Add(context))">Add</button>
+            </TemplateColumn>
         </QuickGrid>
     </div>
 }
 
+<p><strong>@message</strong></p>
+
 @code {
-    public IQueryable<Product> products;
+    private string message = string.Empty;
+    private IQueryable<Product> products;
 
     protected override async Task OnInitializedAsync()
     {
         products = await productService.GetProducts();
+    }
+
+    private void Add(Product product)
+    {
+        message = product.ToString();
     }
 }
