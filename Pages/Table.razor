@@ -1,0 +1,36 @@
+﻿@page "/table"
+
+<PageTitle>Products</PageTitle>
+
+@using BlazorServerSignalRApp.Data
+@using Microsoft.AspNetCore.Components.QuickGrid
+@inject ProductService productService;
+
+<h1>Список продуктів</h1>
+
+@if (products == null)
+{
+    <p><em>Завантаження...</em></p>
+}
+else
+{
+    <div class="grid" tabindex="-1">
+        <QuickGrid Items="@products">
+            <PropertyColumn Property="@(p => p.Id)" Sortable="true" />
+            <TemplateColumn>
+                <img src="https://via.placeholder.com/100C" height="100px" width="100px">
+            </TemplateColumn>
+            <PropertyColumn Property="@(p => p.Name)" Sortable="true" />
+            <PropertyColumn Property="@(p => p.Price)" Sortable="true" />
+        </QuickGrid>
+    </div>
+}
+
+@code {
+    public IQueryable<Product> products;
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await productService.GetProducts();
+    }
+}
