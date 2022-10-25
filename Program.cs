@@ -10,6 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddTransient<ProductService>();
+builder.Services.AddSignalR().AddHubOptions<ChatHub>(options =>
+{
+    options.EnableDetailedErrors = true;
+});
 builder.Services.AddResponseCompression(opts =>
 {
 	opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
