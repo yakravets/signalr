@@ -47,7 +47,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.MapBlazorHub();
-app.MapHub<ChatHub>("api/hubs/chathub", opt =>
+app.MapHub<ChatHub>("/api/hubs/chathub", opt =>
 {
     opt.Transports =
         HttpTransportType.WebSockets |
