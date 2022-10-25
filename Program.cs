@@ -21,6 +21,12 @@ builder.Services.AddResponseCompression(opts =>
 		new[] { "application/octet-stream" });
 });
 
+builder.Services.AddCors(action =>
+  action.AddPolicy("CorsPolicy", builder =>
+    builder
+     .AllowAnyMethod()
+     .AllowAnyHeader()
+     .AllowAnyOrigin()));
 #endregion
 
 var app = builder.Build();
@@ -36,6 +42,7 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+app.UseCors("CorsPolicy");
 app.UseStaticFiles();
 app.UseRouting();
 
