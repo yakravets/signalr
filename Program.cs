@@ -1,5 +1,6 @@
 using BlazorServerSignalRApp.Data;
 using BlazorServerSignalRApp.Server.Hubs;
+using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.ResponseCompression;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -31,12 +32,21 @@ if (!app.Environment.IsDevelopment())
 
 app.UseStaticFiles();
 
+app.UseCors(builder =>
+{
+    builder.AllowAnyHeader()
+        .WithMethods("GET", "POST")
+        .AllowCredentials();
+});
+
 app.UseRouting();
 
 app.MapBlazorHub();
-app.UseEndpoints(e => 
+app.MapHub<ChatHub>("api/hubs/chathub", opt =>
 {
-    e.MapHub<ChatHub>("api/hubs/chathub");
+    opt.Transports =
+        HttpTransportType.WebSockets |
+        HttpTransportType.LongPolling;
 });
 
 app.MapFallbackToPage("/_Host");
