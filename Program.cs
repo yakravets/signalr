@@ -50,7 +50,8 @@ app.MapBlazorHub();
 app.MapHub<ChatHub>("/api/hubs/chathub", opt =>
 {
     opt.Transports =
-        HttpTransportType.WebSockets;
+        HttpTransportType.WebSockets |
+        HttpTransportType.LongPolling;
 });
 
 app.MapFallbackToPage("/_Host");
