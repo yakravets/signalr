@@ -31,14 +31,6 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseStaticFiles();
-
-app.UseCors(builder =>
-{
-    builder.AllowAnyHeader()
-        .WithMethods("GET", "POST")
-        .AllowCredentials();
-});
-
 app.UseRouting();
 
 app.MapBlazorHub();
