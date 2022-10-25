@@ -37,7 +37,7 @@
     protected override async Task OnInitializedAsync()
     {
         hubConnection = new HubConnectionBuilder()
-            .WithUrl(Navigation.ToAbsoluteUri("hubs/chathub"))
+            .WithUrl(Navigation.ToAbsoluteUri("api/hubs/chathub"))
             .Build();
 
         hubConnection.On<string, string>("ReceiveMessage", (user, message) =>

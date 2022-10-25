@@ -1,9 +1,6 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using BlazorServerSignalRApp.Data;
 using BlazorServerSignalRApp.Server.Hubs;
 using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.AspNet.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,7 +34,11 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.MapBlazorHub();
-app.MapHub<ChatHub>("api/hubs/chathub");
+app.UseEndpoints(e => 
+{
+    e.MapHub<ChatHub>("api/hubs/chathub");
+});
+
 app.MapFallbackToPage("/_Host");
 
 app.Run();
