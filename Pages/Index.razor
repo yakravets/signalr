@@ -1,4 +1,5 @@
 @page "/"
+@using Microsoft.AspNetCore.Http.Connections
 @using Microsoft.AspNetCore.SignalR.Client
 @inject NavigationManager Navigation
 @implements IAsyncDisposable
@@ -37,7 +38,11 @@
     protected override async Task OnInitializedAsync()
     {
         hubConnection = new HubConnectionBuilder()
-            .WithUrl(Navigation.ToAbsoluteUri("/api/hubs/chathub"))
+            .WithUrl(Navigation.ToAbsoluteUri("/api/hubs/chathub"), options =>
+                {
+                    options.SkipNegotiation = true;
+                    options.Transports = HttpTransportType.WebSockets;
+                })
             .Build();
 
         hubConnection.On<string, string>("ReceiveMessage", (user, message) =>
