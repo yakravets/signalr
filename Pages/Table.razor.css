@@ -1,15 +1,41 @@
-﻿button {
-    background: #4969ee;
+﻿.display-none {
+    display: none;
+}
+
+.display-inline-block {
+    display: inline-block;
+}
+
+.visibility {
+    visibility: visible;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.inline {
+    display: inline;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.badge {
+    position: relative;
+    right: -10px;
+    padding: 5px 10px;
+    border-radius: 50%;
+    background: rgb(248, 168, 24);
     color: white;
-    padding: 0.2rem 1rem;
-    border-radius: 0.25rem;
-    margin: 0.25rem 0.5rem;
+    vertical-align: top;
+    font-weight: bold;
+    font-size: smaller;
 }
 
-button:hover {
-    background-color: #6884f9;
-}
-
-button:active {
-    background-color: #192e86;
+.inline {
+    display: inline;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }

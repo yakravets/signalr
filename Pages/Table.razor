@@ -18,12 +18,25 @@ else
         <QuickGrid Items="@products">
             <PropertyColumn Property="@(p => p.Id)" Sortable="true" />
             <TemplateColumn>
-                <img src="/images/pos.png" width="90px">
+                <div class="inline">
+                    <img src="images/pos.png" alt="Burger" class="img" id="img@(context.Id)" width="90px">
+                    @if(context.Count > 0)
+                    {
+                        <span class="badge back-orange" id="badge@(context.Id)">@(context.Count)</span>
+                    }
+                    else
+                    {
+                        <span class="badge back-orange hidden" id="badge@(context.Id)">@(context.Count)</span>
+                    }
+                </div>	
             </TemplateColumn>
-            <PropertyColumn Property="@(p => p.Name)" Sortable="true" />
+            <TemplateColumn Sortable="true" Title="Name">
+                <strong>@(context.Name)</strong>
+            </TemplateColumn>
             <PropertyColumn Property="@(p => p.Price)" Sortable="true" />
-            <TemplateColumn>
-                <button @onclick="@(() => Add(context))">Add</button>
+            <TemplateColumn Title="Actions">
+                <button class="btn btn-primary btn-sm" @onclick="@(() => Add(context))"><span class="oi oi-plus" aria-hidden="true"></span></button>
+                <button class="btn btn-danger btn-sm" @onclick="@(() => Remove(context))"><span class="oi oi-minus" aria-hidden="true"></span></button>
             </TemplateColumn>
         </QuickGrid>
     </div>
@@ -33,7 +46,7 @@ else
 
 @code {
     private string message = string.Empty;
-    private IQueryable<Product> products;
+    private IQueryable<Product>? products;
 
     protected override async Task OnInitializedAsync()
     {
@@ -42,6 +55,16 @@ else
 
     private void Add(Product product)
     {
-        message = product.ToString();
+        product.Count++;
+    }
+
+    private void Remove(Product product)
+    {
+        if(product.Count == 0)
+        {
+            return;
+        }
+
+        product.Count--;
     }
 }
