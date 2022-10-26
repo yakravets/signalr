@@ -16,8 +16,7 @@ else
 {
     <div class="grid" tabindex="-1">
         <QuickGrid Items="@products">
-            <PropertyColumn Property="@(p => p.Id)" Sortable="true" />
-            <TemplateColumn>
+            <TemplateColumn>                
                 <div class="inline">
                     <img src="images/pos.png" alt="Burger" class="img" id="img@(context.Id)" width="90px">
                     @if(context.Count > 0)
@@ -30,13 +29,17 @@ else
                     }
                 </div>	
             </TemplateColumn>
-            <TemplateColumn Sortable="true" Title="Name">
-                <strong>@(context.Name)</strong>
+            <TemplateColumn Title="Name">
+                <div>
+                    <div><strong>@(context.Name)</strong></div>
+                    <div>@(context.Price)$</div>
+                </div>
             </TemplateColumn>
-            <PropertyColumn Property="@(p => p.Price)" Sortable="true" />
             <TemplateColumn Title="Actions">
-                <button class="btn btn-primary btn-sm" @onclick="@(() => Add(context))"><span class="oi oi-plus" aria-hidden="true"></span></button>
-                <button class="btn btn-danger btn-sm" @onclick="@(() => Remove(context))"><span class="oi oi-minus" aria-hidden="true"></span></button>
+                <div>
+                    <button class="btn btn-primary btn-sm" @onclick="@(() => Add(context))"><span class="oi oi-plus" aria-hidden="true"></span></button>
+                    <button class="btn btn-danger btn-sm" @onclick="@(() => Remove(context))"><span class="oi oi-minus" aria-hidden="true"></span></button>
+                </div>                
             </TemplateColumn>
         </QuickGrid>
     </div>
